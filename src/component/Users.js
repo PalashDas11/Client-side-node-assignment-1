@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
+import UserDetails from "./UserDetails";
 
 const Users = () => {
-    const [users, setUsers] = useState([])
-    useEffect(()=>{
-          fetch('http://localhost:5000/api/v1/users')
-          .then(res => res.json())
-          .then(data => setUsers(data))
-    }, [])
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/users/all")
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
   return (
     <div>
-      <div>
-        <h1>this is user :{users.length}</h1>
-     </div>
+      <div className="users-main">
+        {users.map((user) => (
+          <UserDetails
+           user={user}
+           key ={user.id}
+           ></UserDetails>
+        ))}
+
+      </div>
     </div>
   );
 };
